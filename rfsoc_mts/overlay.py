@@ -11,8 +11,9 @@ import xrfdc
 import numpy as np
 import matplotlib.pyplot as plt
 import os
+from pathlib import Path
 
-SAMPLE_FREQ = 4000
+SAMPLE_RATE_MHZ = {'RFSoC4x2': 4000, 'ZCU208': 4000, 'ZCU216': 2000}
 
 class Overlay(Overlay):
     """
@@ -35,9 +36,14 @@ class Overlay(Overlay):
         
         # -- Identify board and set constants --
         board = os.getenv('BOARD')
+        if not board:
+            board_file = Path('/proc/device-tree/chosen/pynq_board')
+            if board_file.is_file():
+                board = board_file.read_bytes().rstrip(b'\0').decode()
         
-        if board not in ['RFSoC4x2', 'ZCU208']:
-            assert False, f"This board ({board}) is NOT supported"
+        if board not in SAMPLE_RATE_MHZ:
+            raise ValueError(f"Unsupported board: {board}")
+        self.sample_rate_mhz = SAMPLE_RATE_MHZ[board]
             
         # -- Generate default bitfile name --
         if bitfile_name is None:
@@ -59,8 +65,8 @@ class Overlay(Overlay):
             lmx_freq = lmx_freq
         )
         
-        self.rfdc.dac_tiles[dac_mts_reftile].DynamicPLLConfig(1, lmx_freq, SAMPLE_FREQ)
-        self.rfdc.adc_tiles[adc_mts_reftile].DynamicPLLConfig(1, lmx_freq, SAMPLE_FREQ)
+        self.rfdc.dac_tiles[dac_mts_reftile].DynamicPLLConfig(1, lmx_freq, self.sample_rate_mhz)
+        self.rfdc.adc_tiles[adc_mts_reftile].DynamicPLLConfig(1, lmx_freq, self.sample_rate_mhz)
         
         self.mts = MultiTileSynchronisation(
             rfdc = self.rfdc,

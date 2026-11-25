@@ -1,5 +1,4 @@
 import os
-from distutils.dir_util import copy_tree
 from setuptools import find_packages, setup
 import shutil
 
@@ -44,13 +43,13 @@ class package_installer():
             dst = os.path.join(cwd, self.name, directory)
 
             if os.path.isdir(src):
-                copy_tree(src, dst)
+                shutil.copytree(src, dst, dirs_exist_ok=True)
 
     def copy_notebooks(self):
         """Copy notebooks into the Jupyter directory"""
         src_nb_dir = os.path.join('boards', self.board, self.name, 'notebooks')
         dst_nb_dir = os.path.join(board_project_dir)
-        copy_tree(src_nb_dir, dst_nb_dir)
+        shutil.copytree(src_nb_dir, dst_nb_dir, dirs_exist_ok=True)
                 
     def generate_pkg_dirs(self):
         """All files copied over from subdirs via copy_projects are acquired and included in package data"""
@@ -75,14 +74,14 @@ class package_installer():
         # Copy only bitstream into modules/rfsoc_mts/bitstream
         src_bitstream = os.path.join('boards', self.board, self.name, 'bitstream')
         dst_bitstream = os.path.join(dst_modules, 'bitstream')
-        copy_tree(src_bitstream, dst_bitstream)
+        shutil.copytree(src_bitstream, dst_bitstream, dirs_exist_ok=True)
     
     def run_setup(self):
         setup(name=self.name,
               version=self.version,
               install_requires=[
                   self.pynq_version,
-                  "pynqmetadata<0.2.0",
+                  "pynqmetadata" if self.board == "ZCU216" else "pynqmetadata<0.2.0",
               ],
               url=self.url,
               license=self.license,
@@ -92,6 +91,7 @@ class package_installer():
               package_data={'': self.generate_pkg_dirs()},
               description=self.description)
 
+board = os.environ['BOARD']
 package_installer(name = "rfsoc_mts",
                   version = "0.1.0",
                   description  = "RFSoC package to aid in digital feature synchronisation of RFDC tiles using MTS framework.",
@@ -99,5 +99,5 @@ package_installer(name = "rfsoc_mts",
                   email = "ryan.provan@strath.ac.uk, rjprovan2001@gmail.com",
                   license = "None",
                   url = "https://github.com/strathsdr/rfsoc_mts",
-                  pynq_version = "pynq>=3.1.1,<4.0.0",
-                  board = os.environ['BOARD'])
+                  pynq_version = "pynq==4.0.0" if board == "ZCU216" else "pynq>=3.1.1,<4.0.0",
+                  board = board)

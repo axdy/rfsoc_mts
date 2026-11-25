@@ -12,11 +12,13 @@
 </table>
 
 # PYNQ Multi-Tile Sychronisation Reference Design with Synhronisation of Fine Mixing Digital Features.
-This repository has been tested with [PYNQ image v3.1.1](https://github.com/Xilinx/PYNQ/releases) (Vivado 2024.1) for the following RFSoC development boards. Newer PYNQ versions may require different Vivado versions; please verify compatibility against the PYNQ release notes:
+| Board | PYNQ image | Vivado build | Converter rate |
+| --- | --- | --- | --- |
+| [RFSoC4x2](http://rfsoc-pynq.io/) | 3.1.1 | 2024.1 | 4 GS/s |
+| [ZCU208](https://www.xilinx.com/products/boards-and-kits/zcu208.html) | 3.1.1 | 2024.1 | 4 GS/s |
+| ZCU216 | 4.0.0 | 2025.2 | 2 GS/s |
 
-[* ZCU208(https://www.xilinx.com/products/boards-and-kits/zcu208.html),]: # 
-* [RFSoC4x2](http://rfsoc-pynq.io/),
-* [ZCU208](https://www.xilinx.com/products/boards-and-kits/zcu208.html),
+ZCU216 hardware validation is pending.
 
 <p align="center">
   <img src="./demonstration.gif" width="75%" height="75%" />
@@ -24,7 +26,7 @@ This repository has been tested with [PYNQ image v3.1.1](https://github.com/Xili
 
 ## Quick Start
 Follow the instructions below to install the Multi-Tile Synchronisation (MTS) Demonstrator now. <b>You will need to give your board access to the internet</b>.
-*  Power on your RFSoC development board with an SD Card containing a fresh PYNQ v3.0.1 image or greater.
+*  Power on the board with the PYNQ image listed above.
 *  Navigate to Jupyter Labs by opening a browser (preferably Chrome) and connecting to `http://<board_ip_address>:9090/lab`.
 * We need to open a terminal in Jupyter Lab. Firstly, open a launcher window as shown in the figure below:
 
@@ -38,7 +40,7 @@ Follow the instructions below to install the Multi-Tile Synchronisation (MTS) De
   <img src="./open_terminal_window.jpg" width="50%" height="50%" />
 </p>
 
-Run the code below in the jupyter terminal to install the Spectrum Analyser.
+Run the commands below in the Jupyter terminal to install the MTS demonstrator.
 
 > [!WARNING]
 > The commands below modify the `xrfdc` package included with PYNQ. If you have made local changes to this package, you should back them up before installing this repository. Additionally, because these modifications replace the default `xrfdc` package, they may affect the behaviour of other PYNQ designs on your device.
@@ -51,12 +53,15 @@ bash install.sh
 
 Once installation has complete you will find the Multi-Tile Synchronisation notebooks in the Jupyter workspace directory. The folder will be named 'rfsoc_mts'.
 
-## Using the Project Files
-The following software is required to use the project files in this repository.
-- Vivado Design Suite 2024.2
+For ZCU216, boot the custom PYNQ 4.0.0 image and run the installer from a
+checkout containing `boards/ZCU216`. The installer uses Git, Make, GCC, and
+CMake to build the patched RFDC driver in the active PYNQ environment. It also
+installs the CLK104 profiles. Run the setup notebook before the loopback and MTS
+demonstrator.
 
-### Vivado
-This project can be built with Vivado from the command line. Open Vivado 2024.2 and execute the following into the tcl console:
+## Using the Project Files
+Use the Vivado version listed for the board. Run the following in a shell with
+Vivado on `PATH`:
 ```sh
 cd /<repository-location>/boards/<board-name>/rfsoc_mts/
 ```
@@ -66,7 +71,7 @@ make block_design
 make bitstream
 ```
 
-Alternatively, you can run the entire project build by executing the following into the tcl console:
+Alternatively, run the entire project build:
 ```sh
 make all
 ```
