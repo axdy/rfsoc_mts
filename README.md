@@ -18,8 +18,8 @@
 | [ZCU208](https://www.xilinx.com/products/boards-and-kits/zcu208.html) | 3.1.1 | 2024.1 | 4 GS/s |
 | ZCU216 | 4.0.0 | 2025.2 | 2 GS/s |
 
-ZCU216 board testing is pending. Its installation and bring-up checklist is in
-the [ZCU216 board guide](boards/ZCU216/rfsoc_mts/README.md).
+ZCU216 hardware validation is pending. See the
+[ZCU216 board guide](boards/ZCU216/rfsoc_mts/README.md) for installation.
 
 <p align="center">
   <img src="./demonstration.gif" width="75%" height="75%" />
