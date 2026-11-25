@@ -18,8 +18,7 @@
 | [ZCU208](https://www.xilinx.com/products/boards-and-kits/zcu208.html) | 3.1.1 | 2024.1 | 4 GS/s |
 | ZCU216 | 4.0.0 | 2025.2 | 2 GS/s |
 
-ZCU216 hardware validation is pending. See the
-[ZCU216 board guide](boards/ZCU216/rfsoc_mts/README.md) for installation.
+ZCU216 hardware validation is pending.
 
 <p align="center">
   <img src="./demonstration.gif" width="75%" height="75%" />
@@ -53,6 +52,12 @@ bash install.sh
 ```
 
 Once installation has complete you will find the Multi-Tile Synchronisation notebooks in the Jupyter workspace directory. The folder will be named 'rfsoc_mts'.
+
+For ZCU216, boot the custom PYNQ 4.0.0 image and run the installer from a
+checkout containing `boards/ZCU216`. The installer uses Git, Make, GCC, and
+CMake to build the patched RFDC driver in the active PYNQ environment. It also
+installs the CLK104 profiles. Run the setup notebook before the loopback and MTS
+demonstrator.
 
 ## Using the Project Files
 Use the Vivado version listed for the board. Run the following in a shell with
