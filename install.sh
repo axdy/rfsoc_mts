@@ -1,3 +1,11 @@
+#!/usr/bin/env bash
+
+export BOARD="$(tr -d '\0' < /proc/device-tree/chosen/pynq_board)"
+if [[ "$BOARD" == ZCU216 ]]; then
+    repo_dir="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+    exec bash "$repo_dir/boards/ZCU216/rfsoc_mts/install_pynq4.sh"
+fi
+
 # Clone the PYNQ 3.1.1 image
 git clone --branch image_v3.1.1 --recursive https://github.com/Xilinx/PYNQ.git
 cd PYNQ

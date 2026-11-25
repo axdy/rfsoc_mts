@@ -44,3 +44,13 @@ thumbs.db
 *vivado.log
 **/project_1/
 boards/*/rfsoc_mts/rfsoc_mts/
+
+# Vivado outputs from the in-place ZCU216 project
+/boards/ZCU216/rfsoc_mts/rfsoc_mts.xpr
+/boards/ZCU216/rfsoc_mts/rfsoc_mts.cache/
+/boards/ZCU216/rfsoc_mts/rfsoc_mts.gen/
+/boards/ZCU216/rfsoc_mts/rfsoc_mts.hw/
+/boards/ZCU216/rfsoc_mts/rfsoc_mts.ip_user_files/
+/boards/ZCU216/rfsoc_mts/rfsoc_mts.runs/
+/boards/ZCU216/rfsoc_mts/rfsoc_mts.sim/
+/boards/ZCU216/rfsoc_mts/rfsoc_mts.srcs/
