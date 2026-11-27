@@ -15,7 +15,7 @@ if {[llength [get_files -quiet $wrapper_file]] == 0} {
 set_property top block_design_wrapper [current_fileset]
 update_compile_order -fileset sources_1
 
-launch_runs impl_1 -to_step write_bitstream -jobs 2
+launch_runs impl_1 -to_step write_bitstream -jobs 1
 wait_on_run impl_1
 set status [get_property STATUS [get_runs impl_1]]
 if {![string match "write_bitstream Complete*" $status]} {

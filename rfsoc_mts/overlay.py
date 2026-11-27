@@ -77,6 +77,7 @@ class Overlay(Overlay):
             adc_reftile = adc_mts_reftile,
             DigitalFeatureSynch=True,
             sync_on_init=sync_on_init,
+            rfdc_parameters=self.ip_dict["rfdc"].get("parameters"),
         )
         
         # -- Insert your functionality below! --

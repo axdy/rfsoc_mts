@@ -22,7 +22,8 @@ class MultiTileSynchronisation():
         nco_dac=1000,
         nco_adc=1000,
         DigitalFeatureSynch=False,
-        sync_on_init=True
+        sync_on_init=True,
+        rfdc_parameters=None,
     ):
         
         # -- Init attributes --
@@ -33,7 +34,7 @@ class MultiTileSynchronisation():
         self.dac_reftile = dac_reftile # tile whose sampling clock drives all dac mts tiles
         self.adc_reftile = adc_reftile # tile whose sampling clock drives all adc mts tiles
         self.dfs_en = DigitalFeatureSynch # Digital Feature Synchronisation enable
-        self.rfdc_dict = self._discover_rfdcs(dac_active, adc_active) # Identify current board's RFDCs relative to MTS bitmasks
+        self.rfdc_dict = self._discover_rfdcs(dac_active, adc_active, rfdc_parameters)
         
         # -- Reset MTS clkwiz --
         self.clkwiz.mmio.write_reg(0x0000, 0x000A) # necessary else adc won't synch consistently
@@ -169,39 +170,28 @@ class MultiTileSynchronisation():
         sleep(0.1)
         self.rfdc.mts_sysref_enable(SysRefEnable=False)
         
-    def _discover_rfdcs(self, dac_bitmask=0b000, adc_bitmask=0b000):
-        """Function to identify which of the desired MTS DAC/ADC tiles are actually enabled in the hardawre design.
-        """
+    def _discover_rfdcs(self, dac_bitmask=0, adc_bitmask=0, rfdc_parameters=None):
+        """Find usable RFDC blocks on the selected tiles."""
+        parameters = rfdc_parameters or {}
         rfdc_dict = {"DAC": {}, "ADC": {}}
+        converters = (("DAC", dac_bitmask, self.rfdc.dac_tiles),
+                      ("ADC", adc_bitmask, self.rfdc.adc_tiles))
 
-        # -- Discover DAC tiles --
-        for tile, active in enumerate(bin(dac_bitmask)[-4:][::-1]):
-            blocks = []
-
-            if active == '1':
+        for name, mask, tiles in converters:
+            for tile, driver in enumerate(tiles):
+                if (mask & (1 << tile)) == 0:
+                    continue
+                blocks = []
                 for block in range(4):
+                    enabled = parameters.get(f"C_{name}_Slice{tile}{block}_Enable")
+                    if str(enabled).lower() in ("0", "false"):
+                        continue
                     try:
-                        _ = self.rfdc.dac_tiles[tile].blocks[block].MixerSettings
-                        blocks.append(block)
+                        _ = driver.blocks[block].MixerSettings
                     except (RuntimeError, IndexError):
-                        pass
-
+                        continue
+                    blocks.append(block)
                 if blocks:
-                    rfdc_dict["DAC"][tile] = tuple(blocks)
+                    rfdc_dict[name][tile] = tuple(blocks)
 
-        # -- Discover ADC tiles --
-        for tile, active in enumerate(bin(adc_bitmask)[-4:][::-1]):
-            blocks = []
-
-            if active == '1':
-                for block in range(4):
-                    try:
-                        _ = self.rfdc.adc_tiles[tile].blocks[block].MixerSettings
-                        blocks.append(block)
-                    except (RuntimeError, IndexError):
-                        pass
-
-                if blocks:
-                    rfdc_dict["ADC"][tile] = tuple(blocks)
-
-        return rfdc_dict        
+        return rfdc_dict

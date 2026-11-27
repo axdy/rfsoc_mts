@@ -1192,19 +1192,18 @@ proc create_hier_cell_signal_player { parentCell nameHier } {
 
   create_bd_intf_pin -mode Master -vlnv xilinx.com:interface:axis_rtl:1.0 AXIS_DAC_00
 
-  create_bd_intf_pin -mode Master -vlnv xilinx.com:interface:axis_rtl:1.0 AXIS_DAC_01
+  create_bd_intf_pin -mode Master -vlnv xilinx.com:interface:axis_rtl:1.0 AXIS_DAC_02
 
   create_bd_intf_pin -mode Master -vlnv xilinx.com:interface:axis_rtl:1.0 AXIS_DAC_10
 
-  create_bd_intf_pin -mode Master -vlnv xilinx.com:interface:axis_rtl:1.0 AXIS_DAC_11
+  create_bd_intf_pin -mode Master -vlnv xilinx.com:interface:axis_rtl:1.0 AXIS_DAC_12
 
   create_bd_intf_pin -mode Master -vlnv xilinx.com:interface:axis_rtl:1.0 AXIS_DAC_20
 
-  create_bd_intf_pin -mode Master -vlnv xilinx.com:interface:axis_rtl:1.0 AXIS_DAC_21
+  create_bd_intf_pin -mode Master -vlnv xilinx.com:interface:axis_rtl:1.0 AXIS_DAC_22
 
   create_bd_intf_pin -mode Master -vlnv xilinx.com:interface:axis_rtl:1.0 AXIS_DAC_30
-
-  create_bd_intf_pin -mode Master -vlnv xilinx.com:interface:axis_rtl:1.0 AXIS_DAC_31
+  create_bd_intf_pin -mode Master -vlnv xilinx.com:interface:axis_rtl:1.0 AXIS_DAC_32
 
 
   # Create pins
@@ -1298,13 +1297,13 @@ proc create_hier_cell_signal_player { parentCell nameHier } {
 
   # Create interface connections
   connect_bd_intf_net -intf_net Conn1 [get_bd_intf_pins axis_broadcaster/M00_AXIS] [get_bd_intf_pins AXIS_DAC_00]
-  connect_bd_intf_net -intf_net Conn2 [get_bd_intf_pins axis_broadcaster/M01_AXIS] [get_bd_intf_pins AXIS_DAC_01]
+  connect_bd_intf_net -intf_net Conn2 [get_bd_intf_pins axis_broadcaster/M01_AXIS] [get_bd_intf_pins AXIS_DAC_02]
   connect_bd_intf_net -intf_net Conn3 [get_bd_intf_pins axis_broadcaster/M02_AXIS] [get_bd_intf_pins AXIS_DAC_10]
-  connect_bd_intf_net -intf_net Conn4 [get_bd_intf_pins axis_broadcaster/M03_AXIS] [get_bd_intf_pins AXIS_DAC_11]
+  connect_bd_intf_net -intf_net Conn4 [get_bd_intf_pins axis_broadcaster/M03_AXIS] [get_bd_intf_pins AXIS_DAC_12]
   connect_bd_intf_net -intf_net Conn5 [get_bd_intf_pins axis_broadcaster/M04_AXIS] [get_bd_intf_pins AXIS_DAC_20]
-  connect_bd_intf_net -intf_net Conn6 [get_bd_intf_pins axis_broadcaster/M05_AXIS] [get_bd_intf_pins AXIS_DAC_21]
+  connect_bd_intf_net -intf_net Conn6 [get_bd_intf_pins axis_broadcaster/M05_AXIS] [get_bd_intf_pins AXIS_DAC_22]
   connect_bd_intf_net -intf_net Conn7 [get_bd_intf_pins axis_broadcaster/M06_AXIS] [get_bd_intf_pins AXIS_DAC_30]
-  connect_bd_intf_net -intf_net Conn8 [get_bd_intf_pins axis_broadcaster/M07_AXIS] [get_bd_intf_pins AXIS_DAC_31]
+  connect_bd_intf_net -intf_net Conn8 [get_bd_intf_pins axis_broadcaster/M07_AXIS] [get_bd_intf_pins AXIS_DAC_32]
   connect_bd_intf_net -intf_net S_AXI_1 [get_bd_intf_pins S_AXI] [get_bd_intf_pins smartconnect_0/S00_AXI]
   connect_bd_intf_net -intf_net axi_bram_ctrl_0_BRAM_PORTA [get_bd_intf_pins bram_ctrl/BRAM_PORTA] [get_bd_intf_pins bmg/BRAM_PORTA]
   connect_bd_intf_net -intf_net axis_clock_converter_0_M_AXIS [get_bd_intf_pins axis_clock_converter/M_AXIS] [get_bd_intf_pins axis_dwidth_converter/S_AXIS]
@@ -1718,11 +1717,7 @@ proc create_root_design { parentCell } {
 
   set vin00 [ create_bd_intf_port -mode Slave -vlnv xilinx.com:interface:diff_analog_io_rtl:1.0 vin00 ]
 
-  set vin01 [ create_bd_intf_port -mode Slave -vlnv xilinx.com:interface:diff_analog_io_rtl:1.0 vin01 ]
-
   set vin10 [ create_bd_intf_port -mode Slave -vlnv xilinx.com:interface:diff_analog_io_rtl:1.0 vin10 ]
-
-  set vin11 [ create_bd_intf_port -mode Slave -vlnv xilinx.com:interface:diff_analog_io_rtl:1.0 vin11 ]
 
   set adc2_clk [ create_bd_intf_port -mode Slave -vlnv xilinx.com:interface:diff_clock_rtl:1.0 adc2_clk ]
   set_property -dict [ list \
@@ -1731,19 +1726,11 @@ proc create_root_design { parentCell } {
 
   set vin20 [ create_bd_intf_port -mode Slave -vlnv xilinx.com:interface:diff_analog_io_rtl:1.0 vin20 ]
 
-  set vin21 [ create_bd_intf_port -mode Slave -vlnv xilinx.com:interface:diff_analog_io_rtl:1.0 vin21 ]
-
   set vin30 [ create_bd_intf_port -mode Slave -vlnv xilinx.com:interface:diff_analog_io_rtl:1.0 vin30 ]
-
-  set vin31 [ create_bd_intf_port -mode Slave -vlnv xilinx.com:interface:diff_analog_io_rtl:1.0 vin31 ]
 
   set vout00 [ create_bd_intf_port -mode Master -vlnv xilinx.com:interface:diff_analog_io_rtl:1.0 vout00 ]
 
-  set vout01 [ create_bd_intf_port -mode Master -vlnv xilinx.com:interface:diff_analog_io_rtl:1.0 vout01 ]
-
   set vout10 [ create_bd_intf_port -mode Master -vlnv xilinx.com:interface:diff_analog_io_rtl:1.0 vout10 ]
-
-  set vout11 [ create_bd_intf_port -mode Master -vlnv xilinx.com:interface:diff_analog_io_rtl:1.0 vout11 ]
 
   set dac2_clk [ create_bd_intf_port -mode Slave -vlnv xilinx.com:interface:diff_clock_rtl:1.0 dac2_clk ]
   set_property -dict [ list \
@@ -1752,11 +1739,7 @@ proc create_root_design { parentCell } {
 
   set vout20 [ create_bd_intf_port -mode Master -vlnv xilinx.com:interface:diff_analog_io_rtl:1.0 vout20 ]
 
-  set vout21 [ create_bd_intf_port -mode Master -vlnv xilinx.com:interface:diff_analog_io_rtl:1.0 vout21 ]
-
   set vout30 [ create_bd_intf_port -mode Master -vlnv xilinx.com:interface:diff_analog_io_rtl:1.0 vout30 ]
-
-  set vout31 [ create_bd_intf_port -mode Master -vlnv xilinx.com:interface:diff_analog_io_rtl:1.0 vout31 ]
 
   set pl_clk [ create_bd_intf_port -mode Slave -vlnv xilinx.com:interface:diff_clock_rtl:1.0 pl_clk ]
   set_property -dict [ list \
@@ -1767,6 +1750,22 @@ proc create_root_design { parentCell } {
   set_property -dict [ list \
    CONFIG.FREQ_HZ {5000000} \
    ] $pl_sysref
+
+  set vin32 [ create_bd_intf_port -mode Slave -vlnv xilinx.com:interface:diff_analog_io_rtl:1.0 vin32 ]
+
+  set vout12 [ create_bd_intf_port -mode Master -vlnv xilinx.com:interface:diff_analog_io_rtl:1.0 vout12 ]
+
+  set vin22 [ create_bd_intf_port -mode Slave -vlnv xilinx.com:interface:diff_analog_io_rtl:1.0 vin22 ]
+
+  set vout02 [ create_bd_intf_port -mode Master -vlnv xilinx.com:interface:diff_analog_io_rtl:1.0 vout02 ]
+
+  set vin02 [ create_bd_intf_port -mode Slave -vlnv xilinx.com:interface:diff_analog_io_rtl:1.0 vin02 ]
+
+  set vout22 [ create_bd_intf_port -mode Master -vlnv xilinx.com:interface:diff_analog_io_rtl:1.0 vout22 ]
+
+  set vin12 [ create_bd_intf_port -mode Slave -vlnv xilinx.com:interface:diff_analog_io_rtl:1.0 vin12 ]
+
+  set vout32 [ create_bd_intf_port -mode Master -vlnv xilinx.com:interface:diff_analog_io_rtl:1.0 vout32 ]
 
 
   # Create ports
@@ -2090,7 +2089,9 @@ Port;FD4A0000;FD4AFFFF;0|FPD;DPDMA;FD4C0000;FD4CFFFF;0|FPD;DDR_XMPU5_CFG;FD05000
   set adc_types {}
   foreach tile {0 1 2 3} {
     lappend tile_rates CONFIG.ADC${tile}_Sampling_Rate 2.0 CONFIG.DAC${tile}_Sampling_Rate 2.0
-    foreach slice {0 1} {
+    lappend slice_settings CONFIG.ADC_Slice${tile}1_Enable false \
+      CONFIG.DAC_Slice${tile}1_Enable false
+    foreach slice {0 2} {
       lappend slice_settings CONFIG.ADC_Slice${tile}${slice}_Enable true \
         CONFIG.DAC_Slice${tile}${slice}_Enable true
       lappend adc_types CONFIG.ADC_Data_Type${tile}${slice} 1
@@ -2111,29 +2112,30 @@ Port;FD4A0000;FD4AFFFF;0|FPD;DPDMA;FD4C0000;FD4CFFFF;0|FPD;DDR_XMPU5_CFG;FD05000
     CONFIG.ADC3_Clock_Source {2} \
     CONFIG.ADC3_Multi_Tile_Sync {true} \
     CONFIG.ADC_Data_Width00 {2} \
-    CONFIG.ADC_Data_Width01 {2} \
+    CONFIG.ADC_Data_Width02 {2} \
     CONFIG.ADC_Data_Width10 {2} \
-    CONFIG.ADC_Data_Width11 {2} \
+    CONFIG.ADC_Data_Width12 {2} \
     CONFIG.ADC_Data_Width20 {2} \
-    CONFIG.ADC_Data_Width21 {2} \
+    CONFIG.ADC_Data_Width22 {2} \
     CONFIG.ADC_Data_Width30 {2} \
-    CONFIG.ADC_Data_Width31 {2} \
+    CONFIG.ADC_Data_Width32 {2} \
     CONFIG.ADC_Decimation_Mode00 {4} \
-    CONFIG.ADC_Decimation_Mode01 {4} \
+    CONFIG.ADC_Decimation_Mode02 {4} \
     CONFIG.ADC_Decimation_Mode10 {4} \
-    CONFIG.ADC_Decimation_Mode11 {4} \
+    CONFIG.ADC_Decimation_Mode12 {4} \
     CONFIG.ADC_Decimation_Mode20 {4} \
-    CONFIG.ADC_Decimation_Mode21 {4} \
+    CONFIG.ADC_Decimation_Mode22 {4} \
     CONFIG.ADC_Decimation_Mode30 {4} \
-    CONFIG.ADC_Decimation_Mode31 {4} \
+    CONFIG.ADC_Decimation_Mode32 {4} \
     CONFIG.ADC_Mixer_Type00 {2} \
-    CONFIG.ADC_Mixer_Type01 {2} \
+    CONFIG.ADC_Mixer_Type02 {2} \
+    CONFIG.ADC_Mixer_Type10 {2} \
+    CONFIG.ADC_Mixer_Type12 {2} \
     CONFIG.ADC_Mixer_Type20 {2} \
-    CONFIG.ADC_Mixer_Type21 {2} \
+    CONFIG.ADC_Mixer_Type22 {2} \
     CONFIG.ADC_Mixer_Type30 {2} \
-    CONFIG.ADC_Mixer_Type31 {2} \
+    CONFIG.ADC_Mixer_Type32 {2} \
     CONFIG.ADC_NCO_Freq00 {1.0} \
-    CONFIG.ADC_NCO_Freq01 {1.0} \
     CONFIG.DAC0_Clock_Source {6} \
     CONFIG.DAC0_Multi_Tile_Sync {true} \
     CONFIG.DAC1_Clock_Source {6} \
@@ -2145,33 +2147,32 @@ Port;FD4A0000;FD4AFFFF;0|FPD;DPDMA;FD4C0000;FD4CFFFF;0|FPD;DDR_XMPU5_CFG;FD05000
     CONFIG.DAC3_Clock_Source {6} \
     CONFIG.DAC3_Multi_Tile_Sync {true} \
     CONFIG.DAC_Data_Type00 {0} \
-    CONFIG.DAC_Data_Type01 {0} \
     CONFIG.DAC_Data_Type10 {0} \
-    CONFIG.DAC_Data_Type11 {0} \
+    CONFIG.DAC_Data_Type12 {0} \
     CONFIG.DAC_Data_Width00 {2} \
-    CONFIG.DAC_Data_Width01 {2} \
+    CONFIG.DAC_Data_Width02 {2} \
     CONFIG.DAC_Data_Width10 {2} \
-    CONFIG.DAC_Data_Width11 {2} \
+    CONFIG.DAC_Data_Width12 {2} \
     CONFIG.DAC_Data_Width20 {2} \
-    CONFIG.DAC_Data_Width21 {2} \
+    CONFIG.DAC_Data_Width22 {2} \
     CONFIG.DAC_Data_Width30 {2} \
-    CONFIG.DAC_Data_Width31 {2} \
+    CONFIG.DAC_Data_Width32 {2} \
     CONFIG.DAC_Interpolation_Mode00 {4} \
-    CONFIG.DAC_Interpolation_Mode01 {4} \
+    CONFIG.DAC_Interpolation_Mode02 {4} \
     CONFIG.DAC_Interpolation_Mode10 {4} \
-    CONFIG.DAC_Interpolation_Mode11 {4} \
+    CONFIG.DAC_Interpolation_Mode12 {4} \
     CONFIG.DAC_Interpolation_Mode20 {4} \
-    CONFIG.DAC_Interpolation_Mode21 {4} \
+    CONFIG.DAC_Interpolation_Mode22 {4} \
     CONFIG.DAC_Interpolation_Mode30 {4} \
-    CONFIG.DAC_Interpolation_Mode31 {4} \
+    CONFIG.DAC_Interpolation_Mode32 {4} \
     CONFIG.DAC_Mixer_Type00 {2} \
-    CONFIG.DAC_Mixer_Type01 {2} \
+    CONFIG.DAC_Mixer_Type02 {2} \
     CONFIG.DAC_Mixer_Type10 {2} \
-    CONFIG.DAC_Mixer_Type11 {2} \
+    CONFIG.DAC_Mixer_Type12 {2} \
     CONFIG.DAC_Mixer_Type20 {2} \
-    CONFIG.DAC_Mixer_Type21 {2} \
+    CONFIG.DAC_Mixer_Type22 {2} \
     CONFIG.DAC_Mixer_Type30 {2} \
-    CONFIG.DAC_Mixer_Type31 {2} \
+    CONFIG.DAC_Mixer_Type32 {2} \
   ] $rfdc
 
   # Apply the AXI-stream clock rates after the converter datapaths are configured.
@@ -2255,6 +2256,7 @@ Port;FD4A0000;FD4AFFFF;0|FPD;DPDMA;FD4C0000;FD4CFFFF;0|FPD;DDR_XMPU5_CFG;FD05000
 
 
   # Create interface connections
+  connect_bd_intf_net -intf_net AXIS_ADC_12_1 [get_bd_intf_pins signal_capture/AXIS_ADC_12] [get_bd_intf_pins rfdc/m12_axis]
   connect_bd_intf_net -intf_net S_AXI_1 [get_bd_intf_pins signal_capture/S_AXI] [get_bd_intf_pins smartconnect_0/M00_AXI]
   connect_bd_intf_net -intf_net adc2_clk_1 [get_bd_intf_ports adc2_clk] [get_bd_intf_pins rfdc/adc2_clk]
   connect_bd_intf_net -intf_net axi_smc_M00_AXI [get_bd_intf_pins axi_smc/M00_AXI] [get_bd_intf_pins rfdc/s_axi]
@@ -2263,40 +2265,39 @@ Port;FD4A0000;FD4AFFFF;0|FPD;DPDMA;FD4C0000;FD4CFFFF;0|FPD;DDR_XMPU5_CFG;FD05000
   connect_bd_intf_net -intf_net dac2_clk_1 [get_bd_intf_ports dac2_clk] [get_bd_intf_pins rfdc/dac2_clk]
   connect_bd_intf_net -intf_net pl_clk_0_1 [get_bd_intf_ports pl_clk] [get_bd_intf_pins sysref_capture/pl_clk]
   connect_bd_intf_net -intf_net pl_sysref_0_1 [get_bd_intf_ports pl_sysref] [get_bd_intf_pins sysref_capture/pl_sysref]
+  connect_bd_intf_net -intf_net rfdc_m02_axis [get_bd_intf_pins rfdc/m02_axis] [get_bd_intf_pins signal_capture/AXIS_ADC_02]
+  connect_bd_intf_net -intf_net rfdc_m22_axis [get_bd_intf_pins rfdc/m22_axis] [get_bd_intf_pins signal_capture/AXIS_ADC_22]
+  connect_bd_intf_net -intf_net rfdc_m32_axis [get_bd_intf_pins rfdc/m32_axis] [get_bd_intf_pins signal_capture/AXIS_ADC_32]
+  connect_bd_intf_net -intf_net rfdc_vout02 [get_bd_intf_ports vout02] [get_bd_intf_pins rfdc/vout02]
+  connect_bd_intf_net -intf_net rfdc_vout12 [get_bd_intf_ports vout12] [get_bd_intf_pins rfdc/vout12]
+  connect_bd_intf_net -intf_net rfdc_vout22 [get_bd_intf_ports vout22] [get_bd_intf_pins rfdc/vout22]
+  connect_bd_intf_net -intf_net rfdc_vout32 [get_bd_intf_ports vout32] [get_bd_intf_pins rfdc/vout32]
   connect_bd_intf_net -intf_net signal_player_AXIS_DAC_00 [get_bd_intf_pins signal_player/AXIS_DAC_00] [get_bd_intf_pins rfdc/s00_axis]
-  connect_bd_intf_net -intf_net signal_player_AXIS_DAC_02 [get_bd_intf_pins signal_player/AXIS_DAC_01] [get_bd_intf_pins rfdc/s01_axis]
+  connect_bd_intf_net -intf_net signal_player_AXIS_DAC_01 [get_bd_intf_pins signal_player/AXIS_DAC_02] [get_bd_intf_pins rfdc/s02_axis]
   connect_bd_intf_net -intf_net signal_player_AXIS_DAC_10 [get_bd_intf_pins signal_player/AXIS_DAC_10] [get_bd_intf_pins rfdc/s10_axis]
-  connect_bd_intf_net -intf_net signal_player_AXIS_DAC_12 [get_bd_intf_pins signal_player/AXIS_DAC_11] [get_bd_intf_pins rfdc/s11_axis]
+  connect_bd_intf_net -intf_net signal_player_AXIS_DAC_11 [get_bd_intf_pins signal_player/AXIS_DAC_12] [get_bd_intf_pins rfdc/s12_axis]
   connect_bd_intf_net -intf_net signal_player_AXIS_DAC_20 [get_bd_intf_pins signal_player/AXIS_DAC_20] [get_bd_intf_pins rfdc/s20_axis]
-  connect_bd_intf_net -intf_net signal_player_AXIS_DAC_22 [get_bd_intf_pins signal_player/AXIS_DAC_21] [get_bd_intf_pins rfdc/s21_axis]
+  connect_bd_intf_net -intf_net signal_player_AXIS_DAC_21 [get_bd_intf_pins signal_player/AXIS_DAC_22] [get_bd_intf_pins rfdc/s22_axis]
   connect_bd_intf_net -intf_net signal_player_AXIS_DAC_30 [get_bd_intf_pins signal_player/AXIS_DAC_30] [get_bd_intf_pins rfdc/s30_axis]
-  connect_bd_intf_net -intf_net signal_player_AXIS_DAC_32 [get_bd_intf_pins signal_player/AXIS_DAC_31] [get_bd_intf_pins rfdc/s31_axis]
+  connect_bd_intf_net -intf_net signal_player_AXIS_DAC_32 [get_bd_intf_pins signal_player/AXIS_DAC_32] [get_bd_intf_pins rfdc/s32_axis]
   connect_bd_intf_net -intf_net smartconnect_0_M01_AXI [get_bd_intf_pins smartconnect_0/M01_AXI] [get_bd_intf_pins signal_player/S_AXI]
   connect_bd_intf_net -intf_net sysref_in_1 [get_bd_intf_ports sysref_in] [get_bd_intf_pins rfdc/sysref_in]
   connect_bd_intf_net -intf_net usp_rf_data_converter_0_m00_axis [get_bd_intf_pins rfdc/m00_axis] [get_bd_intf_pins signal_capture/AXIS_ADC_00]
-  connect_bd_intf_net -intf_net usp_rf_data_converter_0_m01_axis [get_bd_intf_pins rfdc/m01_axis] [get_bd_intf_pins signal_capture/AXIS_ADC_02]
   connect_bd_intf_net -intf_net usp_rf_data_converter_0_m10_axis [get_bd_intf_pins rfdc/m10_axis] [get_bd_intf_pins signal_capture/AXIS_ADC_10]
-  connect_bd_intf_net -intf_net usp_rf_data_converter_0_m11_axis [get_bd_intf_pins rfdc/m11_axis] [get_bd_intf_pins signal_capture/AXIS_ADC_12]
   connect_bd_intf_net -intf_net usp_rf_data_converter_0_m20_axis [get_bd_intf_pins rfdc/m20_axis] [get_bd_intf_pins signal_capture/AXIS_ADC_20]
-  connect_bd_intf_net -intf_net usp_rf_data_converter_0_m21_axis [get_bd_intf_pins rfdc/m21_axis] [get_bd_intf_pins signal_capture/AXIS_ADC_22]
   connect_bd_intf_net -intf_net usp_rf_data_converter_0_m30_axis [get_bd_intf_pins rfdc/m30_axis] [get_bd_intf_pins signal_capture/AXIS_ADC_30]
-  connect_bd_intf_net -intf_net usp_rf_data_converter_0_m31_axis [get_bd_intf_pins rfdc/m31_axis] [get_bd_intf_pins signal_capture/AXIS_ADC_32]
   connect_bd_intf_net -intf_net usp_rf_data_converter_0_vout00 [get_bd_intf_ports vout00] [get_bd_intf_pins rfdc/vout00]
-  connect_bd_intf_net -intf_net usp_rf_data_converter_0_vout01 [get_bd_intf_ports vout01] [get_bd_intf_pins rfdc/vout01]
   connect_bd_intf_net -intf_net usp_rf_data_converter_0_vout10 [get_bd_intf_ports vout10] [get_bd_intf_pins rfdc/vout10]
-  connect_bd_intf_net -intf_net usp_rf_data_converter_0_vout11 [get_bd_intf_ports vout11] [get_bd_intf_pins rfdc/vout11]
   connect_bd_intf_net -intf_net usp_rf_data_converter_0_vout20 [get_bd_intf_ports vout20] [get_bd_intf_pins rfdc/vout20]
-  connect_bd_intf_net -intf_net usp_rf_data_converter_0_vout21 [get_bd_intf_ports vout21] [get_bd_intf_pins rfdc/vout21]
   connect_bd_intf_net -intf_net usp_rf_data_converter_0_vout30 [get_bd_intf_ports vout30] [get_bd_intf_pins rfdc/vout30]
-  connect_bd_intf_net -intf_net usp_rf_data_converter_0_vout31 [get_bd_intf_ports vout31] [get_bd_intf_pins rfdc/vout31]
   connect_bd_intf_net -intf_net vin00_1 [get_bd_intf_ports vin00] [get_bd_intf_pins rfdc/vin00]
-  connect_bd_intf_net -intf_net vin01_1 [get_bd_intf_ports vin01] [get_bd_intf_pins rfdc/vin01]
+  connect_bd_intf_net -intf_net vin02_0_1 [get_bd_intf_ports vin02] [get_bd_intf_pins rfdc/vin02]
   connect_bd_intf_net -intf_net vin10_1 [get_bd_intf_ports vin10] [get_bd_intf_pins rfdc/vin10]
-  connect_bd_intf_net -intf_net vin11_1 [get_bd_intf_ports vin11] [get_bd_intf_pins rfdc/vin11]
+  connect_bd_intf_net -intf_net vin12_0_1 [get_bd_intf_ports vin12] [get_bd_intf_pins rfdc/vin12]
   connect_bd_intf_net -intf_net vin20_1 [get_bd_intf_ports vin20] [get_bd_intf_pins rfdc/vin20]
-  connect_bd_intf_net -intf_net vin21_1 [get_bd_intf_ports vin21] [get_bd_intf_pins rfdc/vin21]
+  connect_bd_intf_net -intf_net vin22_0_1 [get_bd_intf_ports vin22] [get_bd_intf_pins rfdc/vin22]
   connect_bd_intf_net -intf_net vin30_1 [get_bd_intf_ports vin30] [get_bd_intf_pins rfdc/vin30]
-  connect_bd_intf_net -intf_net vin31_1 [get_bd_intf_ports vin31] [get_bd_intf_pins rfdc/vin31]
+  connect_bd_intf_net -intf_net vin32_0_1 [get_bd_intf_ports vin32] [get_bd_intf_pins rfdc/vin32]
   connect_bd_intf_net -intf_net zynq_ultra_ps_e_0_M_AXI_HPM0_FPD [get_bd_intf_pins zynq_ultra_ps_e_0/M_AXI_HPM0_FPD] [get_bd_intf_pins axi_smc/S00_AXI]
   connect_bd_intf_net -intf_net zynq_ultra_ps_e_0_M_AXI_HPM1_FPD [get_bd_intf_pins smartconnect_0/S00_AXI] [get_bd_intf_pins zynq_ultra_ps_e_0/M_AXI_HPM1_FPD]
 
@@ -2393,5 +2394,6 @@ Port;FD4A0000;FD4AFFFF;0|FPD;DPDMA;FD4C0000;FD4CFFFF;0|FPD;DDR_XMPU5_CFG;FD05000
 ##################################################################
 # MAIN FLOW
 ##################################################################
+
 
 create_root_design ""
